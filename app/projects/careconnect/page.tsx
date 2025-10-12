@@ -26,7 +26,6 @@ export default function CareConnectPage() {
           description="Cổng thông tin bệnh nhân ưu tiên khả năng tiếp cận, kết nối bệnh nhân với nhà cung cấp dịch vụ chăm sóc sức khỏe, hồ sơ y tế và lịch hẹn khám."
           ctaText="Xem Website"
           ctaLink="#"
-          companies={["EFEX", "Japanbuy", "Ichiba"]}
         >
           {/* Thành tựu nổi bật */}
           <div className="mt-8 border-t border-white/10 pt-8">

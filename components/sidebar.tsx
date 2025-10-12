@@ -40,24 +40,29 @@ type SidebarProps = {
  */
 export default function Sidebar({
   children,
-  headingLines = ["I design products", "that people love"],
-  description = "Brandon is a product designer based in New York. He helps early‑stage startups ship beautiful, usable software fast.",
-  ctaText = "Hire me",
-  ctaLink = "mailto:brandon@portfolio.dev",
-  companies = ["EFEX", "Japanbuy", "Ichiba"]
+  // Xóa giá trị mặc định ở đây. Nếu không truyền, chúng sẽ là undefined
+  headingLines,
+  description,
+  ctaText,
+  ctaLink,
+  companies
 }: SidebarProps) {
+    // Định nghĩa giá trị mặc định bên trong hàm nếu cần, 
+    // HOẶC dùng luôn giá trị mặc định cũ cho headingLines để đảm bảo luôn có tiêu đề chính
+    const defaultHeadingLines = ["I design products", "that people love"];
+
   return (
     <RevealOnView 
       as="div" 
       intensity="hero" 
-      className="relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60 p-6 sm:p-8" 
+      className="relative flex flex-col rounded-3xl border border-white/10 bg-neutral-900/60 p-6 sm:p-8 max-w-full min-h-full" 
       staggerChildren
     >
       {/* Texture background */}
-      <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light">
+      <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light rounded-3xl overflow-hidden">
         <DotGridShader />
       </div>
-      <div>
+      <div className="relative z-10 w-full overflow-hidden flex-shrink-0">
         {/* Wordmark */}
         <div className="mb-8 flex items-center gap-2">
           <div className="text-2xl font-extrabold tracking-tight">Lộc Nguyễn</div>
@@ -65,16 +70,20 @@ export default function Sidebar({
         </div>
 
         {/* Headline with intro blur effect */}
+        {/* Sử dụng headingLines truyền vào, nếu không có thì dùng defaultHeadingLines */}
         <AnimatedHeading
           className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl"
-          lines={headingLines}
+          lines={headingLines || defaultHeadingLines} 
         />
 
-        <p className="mt-4 max-w-[42ch] text-lg text-white/70">
-          {description}
-        </p>
+        {/* Description: Chỉ hiển thị nếu description có giá trị */}
+        {description && (
+          <p className="mt-4 max-w-[42ch] text-lg text-white/70">
+            {description}
+          </p>
+        )}
 
-        {/* CTAs */}
+        {/* CTAs: Chỉ hiển thị nếu ctaText VÀ ctaLink có giá trị */}
         {ctaText && ctaLink && (
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full">
@@ -86,7 +95,7 @@ export default function Sidebar({
           </div>
         )}
 
-        {/* Trusted by */}
+        {/* Trusted by: Chỉ hiển thị nếu companies TỒN TẠI VÀ có phần tử (dài > 0) */}
         {companies && companies.length > 0 && (
           <div className="mt-10">
             <p className="mb-3 text-xs font-semibold tracking-widest text-white/50">
@@ -102,7 +111,11 @@ export default function Sidebar({
       </div>
 
       {/* Additional content */}
-      {children}
+      {children && (
+        <div className="relative z-10 w-full overflow-hidden flex-shrink-0 mt-auto">
+          {children}
+        </div>
+      )}
     </RevealOnView>
   )
 }

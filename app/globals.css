@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Font configuration for Tailwind v4 */
+@theme {
+  --font-family-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-family-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -117,7 +123,73 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  /* Typography - Headings use bolder weights */
+  h1 {
+    @apply font-black; /* 900 */
+  }
+  
+  h2 {
+    @apply font-bold; /* 700 */
+  }
+  
+  h3, h4 {
+    @apply font-semibold; /* 600 */
+  }
+  
+  h5, h6 {
+    @apply font-medium; /* 500 */
+  }
+  
+  /* Code blocks use mono font */
+  code, pre, kbd, samp {
+    @apply font-mono;
+  }
+  
+  /* Strong and bold text */
+  strong, b {
+    @apply font-semibold;
+  }
+}
+
+/* Custom scrollbar styles - hide scrollbar but keep functionality */
+@layer utilities {
+  .scrollbar-hide {
+    /* Firefox */
+    scrollbar-width: none;
+    /* Safari and Chrome */
+    -ms-overflow-style: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Optional: Show subtle scrollbar on hover for better UX */
+  .scrollbar-hover::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-hover::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+
+  .scrollbar-hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .scrollbar-hover {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
 }

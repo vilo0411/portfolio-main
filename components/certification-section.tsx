@@ -24,16 +24,15 @@ export default function CertificationSection({
   className,
 }: CertificationSectionProps) {
   return (
-    <div className={cn("mt-10", className)}>
+    <div className={cn("mt-10 w-full", className)}>
       <p className="mb-3 text-xs font-semibold tracking-widest text-white/50">
         CERTIFICATIONS
       </p>
-      <ul className="space-y-3">
+      <ul className="space-y-3 w-full">
         {certifications.map((cert, index) => (
-          <RevealOnView
+          <li
             key={cert.title}
-            delay={index * 0.05}
-            className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-colors hover:bg-white/10"
+            className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-colors hover:bg-white/10 w-full"
           >
             {cert.logo && (
               <div className="flex-shrink-0 h-10 w-10 rounded-md bg-white/10 flex items-center justify-center overflow-hidden">
@@ -45,7 +44,7 @@ export default function CertificationSection({
               </div>
             )}
             <div className="flex-grow min-w-0">
-              <h3 className="text-sm font-medium truncate">{cert.title}</h3>
+              <h3 className="text-sm font-medium line-clamp-2">{cert.title}</h3>
               <p className="text-xs text-white/60 truncate">
                 {cert.issuer} • {cert.date}
               </p>
@@ -60,7 +59,7 @@ export default function CertificationSection({
               >
               </a>
             )}
-          </RevealOnView>
+          </li>
         ))}
       </ul>
     </div>

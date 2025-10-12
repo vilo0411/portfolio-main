@@ -40,9 +40,8 @@ export default function ProjectCard({
           delay={revealDelay}
           className="rounded-3xl border p-1 shadow-[0_10px_60px_-10px_rgba(0,0,0,0.6)] lg:h-full transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-[0_15px_70px_-10px_rgba(0,0,0,0.7)] bg-black/80 relative"
           style={{
-            borderImage: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo}) 1`,
             borderWidth: '1px',
-            borderStyle: 'solid'
+            borderImage: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo}) 1`
           }}
         >
           <div className="relative overflow-hidden rounded-[1.35rem] bg-black lg:h-full">

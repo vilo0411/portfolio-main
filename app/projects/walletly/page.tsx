@@ -26,7 +26,6 @@ export default function WalletlyPage() {
           description="Giải pháp ngân hàng di động toàn diện cho phép người dùng quản lý nhiều tài khoản, theo dõi chi tiêu và thực hiện thanh toán một cách liền mạch."
           ctaText="Xem Website"
           ctaLink="#"
-          companies={["EFEX", "Japanbuy", "Ichiba"]}
         >
           {/* Thành tựu nổi bật */}
           <div className="mt-8 border-t border-white/10 pt-8">

@@ -9,16 +9,39 @@ export const metadata = {
 }
 
 export default function NimbusPage() {
+  // Thành tựu nổi bật của dự án
+  const achievements = [
+    "Tăng 45% tỷ lệ tương tác người dùng",
+    "Giảm 32% tỷ lệ bỏ giao dịch",
+    "Cải thiện điểm hài lòng người dùng từ 3.6 lên 4.8",
+    "Ra mắt thành công tại 3 thị trường trong vòng 6 tháng"
+  ]
+  
   return (
     <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
-      {/* LEFT: sticky sidebar */}
+      {/* LEFT: sticky sidebar with case study info */}
       <aside className="lg:sticky lg:top-4 lg:h-[calc(100svh-2rem)]">
         <Sidebar 
-          headingLines={["Nimbus", "SaaS Analytics"]} 
-          description="A comprehensive analytics dashboard for SaaS companies to track key metrics, user behavior, and business performance."
-          ctaText="Visit Website"
+          headingLines={["Nimbus", "Mobile Banking"]} 
+          description="Giải pháp ngân hàng di động toàn diện cho phép người dùng quản lý nhiều tài khoản, theo dõi chi tiêu và thực hiện thanh toán một cách liền mạch."
+          ctaText="Xem Website"
           ctaLink="#"
-        />
+        >
+          {/* Thành tựu nổi bật */}
+          <div className="mt-8 border-t border-white/10 pt-8">
+            <p className="mb-3 text-xs font-semibold tracking-widest text-white/50">
+              THÀNH TỰU NỔI BẬT
+            </p>
+            <ul className="space-y-2">
+              {achievements.map((achievement, index) => (
+                <li key={index} className="flex items-start gap-2 text-white/70">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500"></span>
+                  <span>{achievement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Sidebar>
       </aside>
 
       {/* RIGHT: case study content */}

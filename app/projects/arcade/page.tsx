@@ -26,7 +26,6 @@ export default function ArcadePage() {
           description="Nền tảng thương mại điện tử ưu tiên di động cho các thương hiệu thời trang đường phố, tập trung vào trải nghiệm mua sắm độc đáo và tương tác cộng đồng."
           ctaText="Xem Website"
           ctaLink="#"
-          companies={["EFEX", "Japanbuy", "Ichiba"]}
         >
           {/* Thành tựu nổi bật */}
           <div className="mt-8 border-t border-white/10 pt-8">

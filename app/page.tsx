@@ -97,8 +97,8 @@ export default function Page() {
       {/* HERO: full-viewport row. Left is sticky; right scrolls internally. */}
       <section className="px-4 pt-4 pb-16 lg:pb-4">
         <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
-          {/* LEFT: sticky and full height, no cut off - using reusable Sidebar component */}
-          <aside className="lg:sticky lg:top-4 lg:h-[calc(100svh-2rem)]">
+          {/* LEFT: sticky and full height, NOW WITH OVERFLOW-Y-AUTO for scrolling */}
+          <aside className="lg:sticky lg:top-4 lg:max-h-[calc(100svh-2rem)] lg:overflow-y-auto lg:overscroll-contain scrollbar-hide lg:pr-2">
             <Sidebar
               description={projectDescription}
               headingLines={["SEO Executive"]}
@@ -126,7 +126,7 @@ export default function Page() {
             </Sidebar>
           </aside>
 
-          {/* RIGHT: simplified, with adjusted size for project cards */}
+          {/* RIGHT: simplified, with adjusted size for project cards - REMOVED BORDER */}
           <div className="space-y-4">
             {projects.map((p, idx) => (
               <ProjectCard
