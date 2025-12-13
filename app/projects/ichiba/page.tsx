@@ -2,11 +2,17 @@ import Image from "next/image"
 import Sidebar from "@/components/sidebar"
 import RevealOnView from "@/components/reveal-on-view"
 import DotGridShader from "@/components/DotGridShader"
+import AchievementsList from "@/components/achievements-list"
+import Breadcrumb from "@/components/breadcrumb"
+import ProjectPagination from "@/components/project-pagination"
+import ScrollProgress from "@/components/scroll-progress"
 
 export const metadata = {
-  title: "Arcade | Lộc Nguyễn Portfolio",
-  description: "E-commerce for streetwear case study",
+  title: "Ichiba | Lộc Nguyễn Portfolio",
+  description: "Nền tảng hỗ trợ thương mại điện tử xuyên biên giới",
 }
+
+const lastUpdated = "December 2025"
 
 export default function ArcadePage() {
   // Thành tựu nổi bật của dự án
@@ -18,49 +24,49 @@ export default function ArcadePage() {
   ]
 
   return (
-    <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
+    <>
+      <ScrollProgress />
+      <div className="px-4 pt-6 pb-4">
+        <Breadcrumb
+          items={[
+            { label: "Projects", href: "/" },
+            { label: "Ichiba" }
+          ]}
+        />
+      </div>
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
       {/* LEFT: sticky sidebar with case study info */}
-      <aside className="lg:sticky lg:top-4 lg:h-[calc(100svh-2rem)]">
+      <aside className="sidebar-sticky scrollbar-hide">
         <Sidebar 
-          headingLines={["Arcade", "Streetwear E-commerce"]} 
-          description="Nền tảng thương mại điện tử ưu tiên di động cho các thương hiệu thời trang đường phố, tập trung vào trải nghiệm mua sắm độc đáo và tương tác cộng đồng."
+          headingLines={["IchibaOne", "Platform"]} 
+          description="Nền tảng hỗ trợ thương mại điện tử xuyên biên giới"
           ctaText="Xem Website"
-          ctaLink="#"
+          ctaLink="https://ichiba.vn/"
         >
-          {/* Thành tựu nổi bật */}
-          <div className="mt-8 border-t border-white/10 pt-8">
-            <p className="mb-3 text-xs font-semibold tracking-widest text-white/50">
-              THÀNH TỰU NỔI BẬT
-            </p>
-            <ul className="space-y-2">
-              {achievements.map((achievement, index) => (
-                <li key={index} className="flex items-start gap-2 text-white/70">
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500"></span>
-                  <span>{achievement}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <AchievementsList achievements={achievements} className="mt-8" />
         </Sidebar>
       </aside>
 
       {/* RIGHT: case study content */}
       <div className="relative">
-        <RevealOnView 
-          className="relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8"
+        <RevealOnView
+          className="relative overflow-hidden rounded-3xl border-2 border-neutral-200 dark:border-white/10 bg-white/90 dark:bg-neutral-900/60 backdrop-blur-xl p-6 sm:p-8"
           delay={0.1}
-          style={{
-            backgroundImage: `linear-gradient(135deg, #0b132b, #5bc0be)`,
-            backgroundColor: 'rgba(23, 23, 23, 0.6)',
-            backgroundBlendMode: 'overlay'
-          }}
         >
           {/* Texture background */}
-          <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light">
+          <div className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-5 mix-blend-soft-light">
             <DotGridShader />
           </div>
-          
-          <div className="prose prose-invert max-w-none">
+
+          <div className="prose-content prose dark:prose-invert max-w-none relative z-10">
+            {/* Last Updated Badge */}
+            <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Last updated: {lastUpdated}</span>
+            </div>
+
             <div className="mb-8">
               <Image
                 src="/images/1 (1).webp"
@@ -70,17 +76,17 @@ export default function ArcadePage() {
                 className="rounded-lg w-full object-cover"
               />
             </div>
-            <h2>Tổng quan dự án</h2>
+            <h2 id="overview">Tổng quan dự án</h2>
             <p>
               Arcade là nền tảng thương mại điện tử mới được thiết kế đặc biệt cho các thương hiệu thời trang đường phố và thời trang phiên bản giới hạn. Dự án bao gồm việc tạo ra trải nghiệm mua sắm ưu tiên di động nhấn mạnh vào kể chuyện sản phẩm, tương tác cộng đồng và thanh toán liền mạch.
             </p>
 
-            <h2>Thách thức</h2>
+            <h2 id="challenges">Thách thức</h2>
             <p>
               Thị trường thời trang đường phố có những thách thức độc đáo: sản phẩm ra mắt giới hạn, nhu cầu cao và nhấn mạnh vào văn hóa thương hiệu và cộng đồng. Nền tảng cần xử lý các đợt tăng lưu lượng truy cập trong thời gian phát hành sản phẩm trong khi vẫn duy trì trải nghiệm mua sắm cao cấp phù hợp với tính chất độc quyền của sản phẩm.
             </p>
 
-            <h3>Nghiên cứu người dùng</h3>
+            <h3 id="user-research">Nghiên cứu người dùng</h3>
             <p>
               Tôi đã tiến hành nghiên cứu sâu rộng về cộng đồng thời trang đường phố, bao gồm:
             </p>
@@ -91,7 +97,7 @@ export default function ArcadePage() {
               <li>Quan sát trải nghiệm mua sắm và ra mắt sản phẩm trực tiếp</li>
             </ul>
 
-            <h3>Những hiểu biết chính</h3>
+            <h3 id="key-insights">Những hiểu biết chính</h3>
             <p>
               Nghiên cứu đã tiết lộ một số hiểu biết quan trọng định hướng thiết kế:
             </p>
@@ -111,7 +117,7 @@ export default function ArcadePage() {
                   height={400}
                   className="rounded-lg w-full object-cover"
                 />
-                <p className="text-sm text-center mt-2 text-white/70">Wireframes di động khám phá trình duyệt sản phẩm</p>
+                <p className="text-sm text-center mt-2 text-foreground/70">Wireframes di động khám phá trình duyệt sản phẩm</p>
               </div>
               <div>
                 <Image
@@ -121,11 +127,11 @@ export default function ArcadePage() {
                   height={400}
                   className="rounded-lg w-full object-cover"
                 />
-                <p className="text-sm text-center mt-2 text-white/70">Prototype luồng thanh toán được tối ưu hóa</p>
+                <p className="text-sm text-center mt-2 text-foreground/70">Prototype luồng thanh toán được tối ưu hóa</p>
               </div>
             </div>
             
-            <h3>Giải pháp cuối cùng</h3>
+            <h3 id="final-solution">Giải pháp cuối cùng</h3>
             <p>
               Nền tảng cuối cùng bao gồm một số tính năng chính:
             </p>
@@ -136,23 +142,38 @@ export default function ArcadePage() {
               <li>Quy trình thanh toán được tối ưu hóa giảm 40% số bước so với trung bình ngành</li>
             </ul>
 
-            <h2>Kết quả & Tác động</h2>
+            <h2 id="results">Kết quả & Tác động</h2>
             <p>
               Sau khi ra mắt, Arcade đã đạt được những kết quả ấn tượng. Tỷ lệ chuyển đổi trên di động tăng 37%, tỷ lệ bỏ giỏ hàng giảm 25%, và giá trị đơn hàng trung bình tăng 28%. Nền tảng này hiện đang phục vụ hơn 25 thương hiệu thời trang đường phố và đang mở rộng sang các thị trường quốc tế.
             </p>
 
-            <blockquote className="border-l-4 border-white/20 pl-4 italic my-6">
+            <blockquote className="border-l-4 border-emerald-500/50 pl-4 italic my-6">
               "Arcade đã thay đổi cách chúng tôi tiếp cận thương mại điện tử. Trải nghiệm di động mượt mà và tính năng cộng đồng đã giúp chúng tôi xây dựng một cơ sở người hâm mộ trung thành hơn bao giờ hết." — Giám đốc thương hiệu, Supreme Streetwear
             </blockquote>
 
-            <h2>Bài học kinh nghiệm</h2>
+            <h2 id="lessons">Bài học kinh nghiệm</h2>
             <p>
               Dự án này đã dạy tôi tầm quan trọng của việc cân bằng giữa thẩm mỹ và chức năng trong thiết kế thương mại điện tử. Mặc dù trải nghiệm thương hiệu là rất quan trọng trong không gian thời trang đường phố, nhưng hiệu suất và khả năng sử dụng vẫn là yếu tố quyết định đối với tỷ lệ chuyển đổi và sự hài lòng của người dùng.
             </p>
 
           </div>
         </RevealOnView>
+
+        {/* Project Pagination */}
+        <div className="px-4 pb-8">
+          <ProjectPagination
+            previousProject={{
+              title: "Japanbuy — Dịch vụ mua hộ hàng Nhật",
+              href: "/projects/japanbuy"
+            }}
+            nextProject={{
+              title: "TarotGuideOnline — Tổng hợp kiến thức về Tarot",
+              href: "/projects/tarotguideonline"
+            }}
+          />
+        </div>
       </div>
     </div>
+    </>
   )
 }

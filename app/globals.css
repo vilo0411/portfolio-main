@@ -3,6 +3,61 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Theme variables */
+:root {
+  /* Light mode colors */
+  --background: 255 255 255; /* white */
+  --foreground: 10 10 10; /* near black */
+  --card: 250 250 250; /* light gray */
+  --card-foreground: 10 10 10;
+  --border: 220 220 220; /* gray */
+  --muted: 245 245 245;
+  --muted-foreground: 100 100 100;
+}
+
+.dark {
+  /* Dark mode colors */
+  --background: 10 10 10; /* neutral-950 */
+  --foreground: 255 255 255;
+  --card: 23 23 23; /* neutral-900 */
+  --card-foreground: 255 255 255;
+  --border: 38 38 38; /* white/10 equivalent */
+  --muted: 38 38 38;
+  --muted-foreground: 163 163 163;
+}
+
+/* Performance optimizations */
+html {
+  /* Prevent layout shifts during font loading */
+  font-display: swap;
+  /* Enable font kerning for better text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth scroll behavior */
+  scroll-behavior: smooth;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  /* Prevent content shifts */
+  overflow-x: hidden;
+}
+
 /* CRITICAL: Override Next.js auto-injected fonts to use local files */
 /* This prevents loading from /__nextjs_font/ */
 @font-face {
@@ -197,31 +252,178 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
   
-  /* Typography - Headings use bolder weights */
+  /* Typography - ONLY apply to case study pages with .prose-content class */
+  .prose-content h1 {
+    @apply font-black text-4xl sm:text-5xl leading-tight mb-6;
+  }
+  
+  .prose-content h2 {
+    @apply font-bold text-3xl sm:text-4xl leading-tight mb-5 mt-12;
+  }
+  
+  .prose-content h3 {
+    @apply font-semibold text-2xl sm:text-3xl leading-snug mb-4 mt-10;
+  }
+  
+  .prose-content h4 {
+    @apply font-semibold text-xl sm:text-2xl leading-snug mb-3 mt-8;
+  }
+  
+  .prose-content h5,
+  .prose-content h6 {
+    @apply font-medium text-lg sm:text-xl leading-normal mb-3 mt-6;
+  }
+  
+  /* Paragraphs */
+  .prose-content p {
+    @apply text-base leading-relaxed mb-5 text-foreground/85;
+  }
+
+  /* Lists */
+  .prose-content ul,
+  .prose-content ol {
+    @apply mb-6 space-y-2.5;
+  }
+
+  .prose-content ul {
+    @apply list-none pl-0;
+  }
+
+  .prose-content ul li {
+    @apply relative pl-6 text-base leading-relaxed text-foreground/85;
+  }
+
+  .prose-content ul li::before {
+    content: "";
+    @apply absolute left-0 top-[0.6em] h-1.5 w-1.5 rounded-full bg-emerald-500;
+  }
+
+  .prose-content ol {
+    @apply list-decimal pl-6;
+  }
+
+  .prose-content ol li {
+    @apply text-base leading-relaxed text-foreground/85 mb-2.5;
+  }
+  
+  /* Nested lists */
+  .prose-content ul ul,
+  .prose-content ol ol,
+  .prose-content ul ol,
+  .prose-content ol ul {
+    @apply mt-2.5 mb-2.5;
+  }
+  
+  /* Blockquotes */
+  .prose-content blockquote {
+    @apply border-l-4 border-emerald-500/50 pl-6 py-3 my-6 italic text-foreground/70 bg-foreground/5 rounded-r-lg;
+  }
+
+  .prose-content blockquote p {
+    @apply mb-0;
+  }
+
+  /* Links */
+  .prose-content a {
+    @apply text-emerald-500 underline-offset-2 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors;
+  }
+  
+  /* Code blocks */
+  .prose-content code {
+    @apply font-mono text-sm bg-muted px-1.5 py-0.5 rounded;
+  }
+
+  .prose-content pre {
+    @apply font-mono text-sm bg-muted/50 p-4 rounded-lg overflow-x-auto my-6;
+  }
+
+  .prose-content pre code {
+    @apply bg-transparent p-0;
+  }
+  
+  /* Strong and bold text */
+  .prose-content strong,
+  .prose-content b {
+    @apply font-semibold text-foreground;
+  }
+  
+  /* Emphasis */
+  .prose-content em,
+  .prose-content i {
+    @apply italic;
+  }
+  
+  /* Horizontal rule */
+  .prose-content hr {
+    @apply border-border my-8;
+  }
+  
+  /* Images */
+  .prose-content img {
+    @apply rounded-lg;
+  }
+  
+  /* Tables */
+  .prose-content table {
+    @apply w-full border-collapse my-6;
+  }
+
+  .prose-content thead {
+    @apply border-b border-border;
+  }
+
+  .prose-content th {
+    @apply text-left font-semibold p-3 text-foreground;
+  }
+
+  .prose-content td {
+    @apply p-3 border-b border-border/50 text-foreground/85;
+  }
+
+  .prose-content tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  
+  /* Global - minimal styles for headings outside prose */
   h1 {
-    @apply font-black; /* 900 */
+    @apply font-black;
   }
   
   h2 {
-    @apply font-bold; /* 700 */
+    @apply font-bold;
   }
   
   h3, h4 {
-    @apply font-semibold; /* 600 */
+    @apply font-semibold;
   }
   
   h5, h6 {
-    @apply font-medium; /* 500 */
+    @apply font-medium;
   }
   
-  /* Code blocks use mono font */
   code, pre, kbd, samp {
     @apply font-mono;
   }
   
-  /* Strong and bold text */
   strong, b {
     @apply font-semibold;
+  }
+}
+
+/* Custom sticky sidebar styles */
+.sidebar-sticky {
+  position: sticky !important;
+  top: 1rem !important;
+  align-self: start !important;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 1023px) {
+  .sidebar-sticky {
+    position: static !important;
+    max-height: none;
+    overflow-y: visible;
   }
 }
 
@@ -233,7 +435,7 @@
     /* Safari and Chrome */
     -ms-overflow-style: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -260,5 +462,15 @@
   .scrollbar-hover {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+}
+
+/* Shimmer animation for loading skeletons */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }

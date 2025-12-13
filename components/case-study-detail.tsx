@@ -40,23 +40,23 @@ export default function CaseStudyDetail({
   return (
     <div className={cn("flex flex-col lg:flex-row gap-6", className)}>
       {/* Left sidebar with metadata */}
-      <RevealOnView 
-        className="flex-shrink-0 w-full lg:w-80 space-y-6 rounded-xl border border-white/10 bg-neutral-900/60 p-6"
+      <RevealOnView
+        className="flex-shrink-0 w-full lg:w-80 space-y-6 rounded-xl border border-neutral-200 dark:border-white/10 bg-white/90 dark:bg-neutral-900/60 backdrop-blur-xl p-6"
         delay={0.1}
       >
         <div>
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="mt-2 text-white/70">{subtitle}</p>
+          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{title}</h2>
+          <p className="mt-2 text-neutral-600 dark:text-white/70">{subtitle}</p>
         </div>
-        
+
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-white/50 mb-3">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-white/50 mb-3">
             Outcomes
           </h3>
           <ul className="space-y-2">
             {outcomes.map((outcome, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <span className="text-emerald-400 mt-1">•</span>
+              <li key={index} className="flex items-start gap-2 text-neutral-700 dark:text-white/90">
+                <span className="text-emerald-600 dark:text-emerald-400 mt-1">•</span>
                 <span>{outcome}</span>
               </li>
             ))}
@@ -65,11 +65,11 @@ export default function CaseStudyDetail({
       </RevealOnView>
 
       {/* Right content area */}
-      <RevealOnView 
-        className="flex-grow rounded-xl border border-white/10 bg-neutral-900/60 p-6"
+      <RevealOnView
+        className="flex-grow rounded-xl border border-neutral-200 dark:border-white/10 bg-white/90 dark:bg-neutral-900/60 backdrop-blur-xl p-6"
         delay={0.2}
       >
-        <div className="prose prose-invert max-w-none">
+        <div className="prose dark:prose-invert max-w-none">
           {children}
         </div>
       </RevealOnView>

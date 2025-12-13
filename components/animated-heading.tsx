@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef, memo } from "react"
 import { animate, stagger } from "motion"
 import { cn } from "@/lib/utils"
 
@@ -22,15 +22,15 @@ type AnimatedHeadingProps = {
   fromTranslateYPx?: number
 }
 
-export default function AnimatedHeading({
+const AnimatedHeading = memo(function AnimatedHeading({
   className,
   lines,
   startDelay = 0,
-  durationPerWord = 0.9,
-  staggerPerWord = 0.08,
-  lineDelay = 0.3,
-  fromBlurPx = 16,
-  fromTranslateYPx = 14,
+  durationPerWord = 0.5,
+  staggerPerWord = 0.04,
+  lineDelay = 0.15,
+  fromBlurPx = 10,
+  fromTranslateYPx = 8,
 }: AnimatedHeadingProps) {
   const headingRef = useRef<HTMLHeadingElement | null>(null)
 
@@ -43,6 +43,7 @@ export default function AnimatedHeading({
   useEffect(() => {
     if (!headingRef.current) return
     const wordSpans = headingRef.current.querySelectorAll<HTMLSpanElement>("[data-word]")
+    if (wordSpans.length === 0) return
 
     // Initialize all words to the starting state
     wordSpans.forEach((el) => {
@@ -51,7 +52,7 @@ export default function AnimatedHeading({
       el.style.transform = `translateY(${fromTranslateYPx}px)`
     })
 
-    // Group words by line index for line-by-line staggering
+    // Group words by line index
     const wordsByLine = new Map<number, HTMLSpanElement[]>()
     wordSpans.forEach((el) => {
       const lineIndexAttr = el.getAttribute("data-line-index")
@@ -61,24 +62,43 @@ export default function AnimatedHeading({
       wordsByLine.set(lineIndex, arr)
     })
 
-    // Animate each line with an additional line offset, words within the line staggered
-    ;[...wordsByLine.entries()]
-      .sort((a, b) => a[0] - b[0])
-      .forEach(([lineIndex, words]) => {
-        animate(
-          words,
-          { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-          {
-            duration: durationPerWord,
-            delay: stagger(staggerPerWord, { start: startDelay + lineIndex * lineDelay }),
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          }
-        )
+    // Store animation controls
+    const animations: any[] = []
+    let hasAnimated = false
+
+    // Small delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
+      if (hasAnimated) return
+      hasAnimated = true
+
+      ;[...wordsByLine.entries()]
+        .sort((a, b) => a[0] - b[0])
+        .forEach(([lineIndex, words]) => {
+          const anim = animate(
+            words,
+            { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
+            {
+              duration: durationPerWord,
+              delay: stagger(staggerPerWord, { start: startDelay + lineIndex * lineDelay }),
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            }
+          )
+          animations.push(anim)
+        })
+    }, 50)
+
+    return () => {
+      clearTimeout(timeoutId)
+      animations.forEach(anim => {
+        if (anim && typeof anim.stop === 'function') {
+          anim.stop()
+        }
       })
-  }, [startDelay])
+    }
+  }, [startDelay, durationPerWord, staggerPerWord, lineDelay, fromBlurPx, fromTranslateYPx])
 
   return (
-    <h1 ref={headingRef} className={cn(className)} aria-label={lines.join(" ")}> 
+    <h1 ref={headingRef} className={cn(className)} aria-label={lines.join(" ")}>
       {/* Visual characters for animation; hidden from screen readers */}
       <span aria-hidden>
         {tokensPerLine.map((tokens, lineIdx) => (
@@ -104,4 +124,6 @@ export default function AnimatedHeading({
       </span>
     </h1>
   )
-}
+})
+
+export default AnimatedHeading

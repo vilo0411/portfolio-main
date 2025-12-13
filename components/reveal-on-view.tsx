@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, memo } from "react"
 import type { CSSProperties } from "react"
 import { animate, inView, stagger } from "motion"
 
@@ -17,7 +17,7 @@ type RevealOnViewProps = {
   staggerChildren?: boolean
 }
 
-export default function RevealOnView({ as = "div", className, children, delay = 0, style, intensity = "soft", staggerChildren = false }: RevealOnViewProps) {
+const RevealOnView = memo(function RevealOnView({ as = "div", className, children, delay = 0, style, intensity = "soft", staggerChildren = false }: RevealOnViewProps) {
   const Tag = as as any
   const ref = useRef<HTMLElement | null>(null)
 
@@ -25,12 +25,11 @@ export default function RevealOnView({ as = "div", className, children, delay = 
     const element = ref.current
     if (!element) return
 
-    const startTranslate = intensity === "hero" ? 28 : 18
-    const startBlur = intensity === "hero" ? 16 : 10
-    const startScale = intensity === "hero" ? 0.965 : 0.98
+    const startTranslate = intensity === "hero" ? 20 : 12
+    const startBlur = intensity === "hero" ? 10 : 6
+    const startScale = intensity === "hero" ? 0.98 : 0.99
 
     if (staggerChildren) {
-      // Parent stays visible; children will handle their own initial state
       element.style.opacity = "1"
       element.style.transform = "none"
       element.style.filter = "none"
@@ -40,12 +39,17 @@ export default function RevealOnView({ as = "div", className, children, delay = 
       element.style.filter = `blur(${startBlur}px)`
     }
 
+    let animationControl: any = null
+    let hasAnimated = false
+
     const cleanup = inView(element, () => {
+      if (hasAnimated) return
+      hasAnimated = true
+
       const targets = staggerChildren
         ? Array.from(element.children) as HTMLElement[]
         : [element]
 
-      // Initialize all targets if we're staggering children
       if (staggerChildren) {
         targets.forEach((t) => {
           t.style.opacity = "0"
@@ -54,19 +58,26 @@ export default function RevealOnView({ as = "div", className, children, delay = 
         })
       }
 
-      animate(
+      animationControl = animate(
         targets,
         { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0px)" },
-        { duration: 0.95, delay: targets.length > 1 ? stagger(0.12, { start: delay }) : delay, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+        { duration: 0.6, delay: targets.length > 1 ? stagger(0.06, { start: delay }) : delay, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
       )
     })
 
-    return () => cleanup()
-  }, [delay])
+    return () => {
+      cleanup()
+      if (animationControl && typeof animationControl.stop === 'function') {
+        animationControl.stop()
+      }
+    }
+  }, [delay, intensity, staggerChildren])
 
   return (
     <Tag ref={ref} className={className} style={style}>
       {children}
     </Tag>
   )
-}
+})
+
+export default RevealOnView
