@@ -20,15 +20,15 @@ type Props = {
   objectPosition?: string // Thêm prop mới
 }
 
-// Tag colors - using single emerald color for all tags with good contrast
+// Tag colors - high contrast white/neutral for readability on dark image backgrounds
 const getTagColors = () => {
   return {
-    bg: 'bg-emerald-500/15',
-    border: 'border-emerald-500/40',
-    text: 'text-emerald-300',
-    hoverBg: 'group-hover:bg-emerald-500/25',
-    hoverBorder: 'group-hover:border-emerald-500/60',
-    hoverText: 'group-hover:text-emerald-200'
+    bg: 'bg-white/90 dark:bg-neutral-900/90',
+    border: 'border-white/20 dark:border-white/10',
+    text: 'text-neutral-800 dark:text-neutral-100',
+    hoverBg: 'group-hover:bg-white group-hover:dark:bg-neutral-800',
+    hoverBorder: 'group-hover:border-white/40 group-hover:dark:border-white/20',
+    hoverText: 'group-hover:text-neutral-900 group-hover:dark:text-white'
   }
 }
 
@@ -52,7 +52,7 @@ export default function ProjectCard({
       <Link href={href} className="block h-full" aria-label={`Open case study: ${title}`}>
         <RevealOnView
           delay={revealDelay}
-          className="relative rounded-3xl overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_10px_60px_-10px_rgba(0,0,0,0.6)] lg:h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_15px_50px_-10px_rgba(0,0,0,0.2)] dark:group-hover:shadow-[0_20px_80px_-10px_rgba(0,0,0,0.8)]"
+          className="relative rounded-3xl overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_10px_60px_-10px_rgba(0,0,0,0.6)] lg:h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-8px] group-hover:scale-[1.02] group-hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] dark:group-hover:shadow-[0_30px_90px_-10px_rgba(0,0,0,0.9)]"
         >
           {/* Image Container */}
           <div className={cn("relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-full overflow-hidden", imageContainerClassName)}>
@@ -80,15 +80,15 @@ export default function ProjectCard({
                 )}
               />
             </div>
-            
+
             {/* Gradient Overlay on Hover */}
-            <div 
+            <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               style={{
                 background: `linear-gradient(135deg, ${gradientFrom}99, ${gradientTo}99)`
               }}
             />
-            
+
             {/* Subtle vignette - always visible */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
           </div>

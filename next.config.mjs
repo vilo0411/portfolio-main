@@ -6,16 +6,9 @@ const nextConfig = {
   },
   // Disable Fast Refresh auto-refresh on save during dev
   // This prevents unwanted reloads
-  webpack: (config, { dev, isServer }) => {
-    if (dev && !isServer) {
-      // Disable automatic page refresh
-      config.watchOptions = {
-        ...config.watchOptions,
-        ignored: ['**/.git/**', '**/node_modules/**', '**/.next/**'],
-      }
-    }
-    return config
-  },
+  // Disable Fast Refresh auto-refresh on save during dev
+  // This prevents unwanted reloads
+  // webpack config removed for Turbopack compatibility
 }
 
 export default nextConfig

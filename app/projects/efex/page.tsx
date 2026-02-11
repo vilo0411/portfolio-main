@@ -34,7 +34,7 @@ export default function Efex() {
           ]}
         />
       </div>
-      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr] px-4">
       {/* LEFT: sticky sidebar with case study info */}
       <aside className="sidebar-sticky scrollbar-hide">
         <Sidebar

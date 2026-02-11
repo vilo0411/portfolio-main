@@ -21,14 +21,14 @@ export default function ContactSection({ className }: ContactSectionProps) {
     },
     {
       name: "LinkedIn",
-      href: "https://www.linkedin.com/in/loc-nguyen",
+      href: "https://www.linkedin.com/in/locnguyen0411/",
       icon: Linkedin,
       label: "Connect on LinkedIn",
       external: true
     },
     {
       name: "GitHub",
-      href: "https://github.com/locnguyen",
+      href: "https://github.com/vilo0411",
       icon: Github,
       label: "View GitHub profile",
       external: true

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SkipToContent from '@/components/skip-to-content'
+import ScrollToTop from '@/components/scroll-to-top'
+import { geistSans, geistMono } from '@/lib/fonts'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Lộc Nguyễn Portfolio | Digital Marketing Executive',
@@ -58,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="vi" className="dark">
+    <html lang="vi" className={cn("dark", geistSans.variable, geistMono.variable)}>
       <head>
         {/* Favicon */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -66,11 +69,6 @@ export default function RootLayout({
 
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#0a0a0a" />
-
-        {/* Preload critical resources */}
-        <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/Geist-SemiBold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/images/portfolio-efex.webp" as="image" />
 
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -88,9 +86,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="font-sans antialiased">
         <SkipToContent />
         {children}
+        <ScrollToTop />
       </body>
     </html>
   )

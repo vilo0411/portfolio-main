@@ -5,7 +5,7 @@ import type { CSSProperties } from "react"
 import { animate, inView, stagger } from "motion"
 
 type RevealOnViewProps = {
-  as?: keyof JSX.IntrinsicElements
+  as?: React.ElementType
   className?: string
   children: React.ReactNode
   /** Optional delay per item for staggered lists */
@@ -61,7 +61,7 @@ const RevealOnView = memo(function RevealOnView({ as = "div", className, childre
       animationControl = animate(
         targets,
         { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0px)" },
-        { duration: 0.6, delay: targets.length > 1 ? stagger(0.06, { start: delay }) : delay, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+        { duration: 0.6, delay: targets.length > 1 ? ((_el: any, i: number) => delay + i * 0.06) as any : delay, ease: [0.22, 1, 0.36, 1] }
       )
     })
 

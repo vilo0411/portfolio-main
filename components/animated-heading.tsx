@@ -71,20 +71,20 @@ const AnimatedHeading = memo(function AnimatedHeading({
       if (hasAnimated) return
       hasAnimated = true
 
-      ;[...wordsByLine.entries()]
-        .sort((a, b) => a[0] - b[0])
-        .forEach(([lineIndex, words]) => {
-          const anim = animate(
-            words,
-            { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-            {
-              duration: durationPerWord,
-              delay: stagger(staggerPerWord, { start: startDelay + lineIndex * lineDelay }),
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-            }
-          )
-          animations.push(anim)
-        })
+        ;[...wordsByLine.entries()]
+          .sort((a, b) => a[0] - b[0])
+          .forEach(([lineIndex, words]) => {
+            const anim = animate(
+              words,
+              { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any,
+              {
+                duration: durationPerWord,
+                delay: ((_el: any, i: number) => startDelay + lineIndex * lineDelay + i * staggerPerWord) as any,
+                ease: [0.22, 1, 0.36, 1],
+              }
+            )
+            animations.push(anim)
+          })
     }, 50)
 
     return () => {

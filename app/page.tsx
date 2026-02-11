@@ -3,6 +3,7 @@ import dynamic from "next/dynamic"
 import ProjectCard from "@/components/project-card"
 import Sidebar from "@/components/sidebar"
 import AchievementsList from "@/components/achievements-list"
+import TechStack from "@/components/tech-stack"
 
 // Lazy load non-critical component
 const CertificationSection = dynamic(() => import("@/components/certification-section"), {
@@ -35,7 +36,7 @@ export default function Page() {
       url: "#"
     }
   ]
-  
+
   // Thành tựu nổi bật
   const achievements = [
     "20,000+ Organic Traffic/tháng (Lĩnh vực Logistics)",
@@ -109,13 +110,15 @@ export default function Page() {
                 specialization=""
                 yearsOfExperience={2}
                 ctaText="Liên hệ tôi"
-                ctaLink="mailto:nguyenvietloc0411@gmail.com"
+                ctaLink="#contact"
                 companies={["EFEX Asia", "Japanbuy", "IchibaOne Platform", "Kaopiz Software"]}
               >
-                <AchievementsList achievements={achievements} className="mt-8" />
-
-                {/* Certifications */}
-                <CertificationSection certifications={certifications} />
+                <div className="space-y-8 mt-8">
+                  <AchievementsList achievements={achievements} />
+                  <TechStack />
+                  {/* Certifications */}
+                  <CertificationSection certifications={certifications} />
+                </div>
               </Sidebar>
             </div>
           </div>

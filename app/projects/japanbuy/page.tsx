@@ -25,10 +25,6 @@ export default function JapanbuyPage() {
   return (
     <>
       <ScrollProgress />
-      {/* Full page background */}
-      <div className="fixed inset-0 -z-10 opacity-20 pointer-events-none">
-        <DotGridShader />
-      </div>
       <div className="px-4 pt-6 pb-4">
         <Breadcrumb
           items={[
@@ -37,7 +33,11 @@ export default function JapanbuyPage() {
           ]}
         />
       </div>
-      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr]">
+      {/* Full page background */}
+      <div className="fixed inset-0 -z-10 opacity-20 pointer-events-none">
+        <DotGridShader />
+      </div>
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[500px_1fr] px-4">
       {/* LEFT: sticky sidebar with case study info */}
       <aside className="sidebar-sticky scrollbar-hide">
         <Sidebar
